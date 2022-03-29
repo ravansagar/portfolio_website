@@ -1,62 +1,62 @@
 #include <iostream>
+#include <iomanip>
 #include <fstream>
+#define SIZE 10
 using namespace std;
-//Created A class
-class contact
-{
-  public:
-	string name, addrs, gmail, nmbr;
-	int sn;
-} c1[10];
-//Created File I/O variable
 fstream out;
 void add();
-void edit(int);
-void view(int);
-void delet(int);
-int main()
+class contacts
 {
-	add();
-	return 0;
-}
-//Function for add contacts
-void add()
+  private:
+	int sn[SIZE], c;
+	string name[SIZE], adress[SIZE], gmail[SIZE], number[SIZE];
+
+  public:
+	void add();
+	void edit();
+	void delet();
+	void view();
+} contact;
+void contacts::add()
 {
-	int i = 0, c = 0;
+	int i = 0;
 	char x, y, choice;
 	do
 	{
 		fflush(stdin);
-		c1[i].sn = i + 1;
+		sn[i] = i + 1;
 		cout << "Enter Name: " << endl;
-		getline(cin, c1[i].name);
+		getline(cin, name[i]);
 		cout << "Enter Number: " << endl;
-		cin >> c1[i].nmbr;
+		cin >> number[i];
 		cout << "Enter Gmail: " << endl;
-		cin >> c1[i].gmail;
+		cin >> gmail[i];
 		cout << "Enter Adress: " << endl;
-		cin >> c1[i].addrs;
+		cin >> adress[i];
 		i++;
 		c++;
 		cout << "Do you want to add more y/n: ";
 		cin >> choice;
-		if (i == 9)
-			break;
+		system("clear");
 	} while (choice == 'y' || choice == 'Y');
-	view(c);
-	cout << "\nDo you want to edit y/n: ";
+	view();
+	cout << "Do you want to delete contact y/n: ";
 	cin >> x;
-	if (x == 'Y' || x == 'y')
-		edit(c);
-	cout << "\nDo you want to delet contact y/n: ";
+	if (x == 'y' || x == 'Y')
+		delet();
+	cout << "Do you want to edit contact y/n: ";
 	cin >> y;
-	if (y == 'Y' || y == 'y')
-		delet(c);
+	if (y == 'y' || y == 'Y')
+		edit();
+	system("clear");
+	view();
 }
-//function for edit contact information
-void edit(int c)
+void contacts::edit()
 {
-	int choice;
+	int choice, i;
+	view();
+	cout << "Enter SN of your contact which you want to edit: ";
+	cin >> i;
 	cout << "\nEnter what you want to edit\n"
 		 << "1. Name\n"
 		 << "2. Number\n"
@@ -65,69 +65,78 @@ void edit(int c)
 		 << "Enter your choice: ";
 	cin >> choice;
 	cout << endl;
+	system("clear");
 	switch (choice)
 	{
 		fflush(stdin);
 	case 1:
 		cout << "Enter Name: " << endl;
-		cin >> c1[0].name;
+		getline(cin, name[i]);
 		break;
 	case 2:
 		cout << "Enter number: " << endl;
-		cin >> c1[0].nmbr;
+		cin >> number[i];
 		break;
 	case 3:
 		cout << "Enter Gmail: " << endl;
-		cin >> c1[0].gmail;
+		cin >> gmail[i];
 		break;
 	case 4:
 		cout << "Enter Adress: " << endl;
-		cin >> c1[0].addrs;
+		cin >> adress[i];
 		break;
 	default:
 		cout << "Wrong input!!!";
 		break;
 	}
 	cout << "Editted Successfully\n";
-	view(c);
+	system("clear");
+	view();
 }
-//function for delet contact from contact list
-void delet(int c)
+void contacts::delet()
 {
-	int sn;
-	view(c);
+	int s;
+	view();
 	cout << "Enter sn of contact which you want to delet: ";
-	cin >> sn;
-	--sn;
+	cin >> s;
+	--s;
 	--c;
-	for (int i = sn; i < 10; i++)
+	for (int i = s; i < SIZE; i++)
 	{
-		c1[i] = c1[i + 1];
-		c1[i].sn = --c1[i].sn;
+		name[i] = name[i + 1];
+		adress[i] = adress[i + 1];
+		number[i] = number[i + 1];
+		gmail[i] = gmail[i + 1];
 	}
-	view(c);
+	system("clear");
+	view();
 }
-//function for view contact info. and write it on file
-void view(int c)
+void contacts::view()
 {
-	string get_from_file;
-	out.open("My_contacts.txt", ios::out | ios::trunc);
+	string x;
+	out.open("contacts.txt", ios::out | ios::trunc);
 	out << "Sn. "
-		<< "Name \t"
-		<< "Number\t\t"
-		<< "Gmail\t\t\t"
+		<< "Name"<< "\t"
+		<< "Number"<< "\t\t"
+		<< "Gmail"<< "\t\t\t"
 		<< "Adress\n";
-	for (int i = 0; i < c; i++){
-		out << c1[i].sn << ". "
-			<< c1[i].name << "\t"
-			<< c1[i].nmbr << "\t"
-			<< c1[i].gmail << "\t"
-			<< c1[i].addrs << "\n";
+	for (int i = 0; i < c; i++)
+	{
+		out << sn[i] << ". "
+			<< name[i] << "\t"
+			<< number[i] << "\t"
+			<< gmail[i] << "\t"
+			<< adress[i] << "\n";
+		//Here i write comment for $ sign which terminate the reading
 	}
-//Here i write comment for $ sign which terminate the reading
 	out.close();
-    out.open("My_contacts.txt", ios::in);
-     getline(out,get_from_file,'$' );
-     cout<<get_from_file;
-     out.close();
+	out.open("contacts.txt", ios::in);
+	getline(out, x, '$');
+	cout << x;
+	out.close();
+}
+int main()
+{
+	contact.add();
+	return 0;
 }
