@@ -9,12 +9,7 @@ class contacts{
 	int sn[SIZE],c;
 	string name[SIZE],adress[SIZE],gmail[SIZE],number[SIZE];
 	public:
-        void add();
-        void edit();
-        void delet();
-        void view();
-}contact[SIZE];
-void contacts::add(){
+void add(){
 		int i = 0;
 	char x,y, choice;
 	do
@@ -45,7 +40,7 @@ void contacts::add(){
 	system("clear");
 	view();
 }
-void contacts::edit(){
+void edit(){
 	int choice,i;
 	view();
 	cout<<"Enter SN of your contact which you want to edit: ";
@@ -86,7 +81,7 @@ void contacts::edit(){
 	system("clear");
 	view();
 }
-void contacts::delet()
+void delet()
 {
 	system("clear");
 	int s;
@@ -105,7 +100,7 @@ void contacts::delet()
 	system("clear");
 	view();
 }
-void contacts::view(){
+void view(){
 	string x;
 	out.open("contacts.txt",ios::out|ios::trunc);
   out<< "Sn. "
@@ -128,17 +123,7 @@ void contacts::view(){
       cout<<x;
 	out.close();
 }
-int main(){
-	contact[SIZE].add();
-	return 0;
-}ich terminate the reading
-	}
-	out.close();
-	out.open("contacts.txt",ios::in);
-      getline(out,x,'$');
-      cout<<x;
-	out.close();
-}
+}contact[SIZE];
 int main(){
 	contact[SIZE].add();
 	return 0;
