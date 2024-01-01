@@ -24,4 +24,4 @@ menu_item.forEach((item) => {
 	});
 });
 const date = new Date();
-document.getElementById("cr").innerHTML = "Copyright Â© "+ date.getFullYear() +" . All rights reserved";
+document.getElementById("cr").innerHTML = "Copyright Â© "+date.getFullYear()+" . All rights reserved";
