@@ -23,3 +23,5 @@ menu_item.forEach((item) => {
 		mobile_menu.classList.toggle('active');
 	});
 });
+const date = new Date();
+document.getElementById("cr").innerHTML = "Copyright © "+date.getFullYear();+" . All rights reserved";
